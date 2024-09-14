@@ -16,8 +16,8 @@ pipeline {
                 script {
                     def logFile = "unit-test-log.txt"
                     try {
-                        echo 'Running unit tests...' > ${logFile}
-                        echo 'Simulated log content for Unit and Integration Tests' >> ${logFile}
+                        writeFile file: logFile, text: 'Simulated log content for Unit and Integration Tests\n'
+                        echo 'Running unit tests...'
                         currentBuild.result = 'SUCCESS'
                     } catch (Exception e) {
                         currentBuild.result = 'FAILURE'
@@ -53,8 +53,9 @@ pipeline {
                 script {
                     def logFile = "security-scan-log.txt"
                     try {
-                        echo 'Performing security scan...' > ${logFile}
-                        echo 'Simulated log content for Security Scan' >> ${logFile}
+                        // Correct way to create a log file
+                        writeFile file: logFile, text: 'Simulated log content for Security Scan\n'
+                        echo 'Performing security scan...'
                         currentBuild.result = 'SUCCESS'
                     } catch (Exception e) {
                         currentBuild.result = 'FAILURE'
